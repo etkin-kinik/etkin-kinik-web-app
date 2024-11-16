@@ -3,7 +3,7 @@ import './App.css';
 
 const App = () => {
     const [products, setProducts] = useState([]);
-    const [selectedColor, setSelectedColor] = useState({});
+    const [currentColor, setCurrentColor] = useState({}); // Tracks selected color for each product
 
     useEffect(() => {
         fetchProducts();
@@ -11,20 +11,23 @@ const App = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch('https://etkin-kinik-web.vercel.app/api/products');
+            const response = await fetch("https://etkin-kinik-web.vercel.app/api/products");
             const data = await response.json();
-            console.log(data);
             setProducts(data);
+
+            // Initialize the color state with "yellow" as the default for all products
+            const initialColors = {};
+            data.forEach((product) => {
+                initialColors[product.name] = "yellow";
+            });
+            setCurrentColor(initialColors);
         } catch (error) {
-            console.error('Error fetching products:', error);
+            console.error("Error fetching products:", error);
         }
     };
 
-    const [currentColor, setCurrentColor] = useState({}); // Tracks selected color for each product
-
-    // Handle color change
-    const handleColorChange = (id, index) => {
-        setCurrentColor((prev) => ({ ...prev, [id]: index }));
+    const handleColorChange = (productName, color) => {
+        setCurrentColor((prev) => ({ ...prev, [productName]: color }));
     };
 
     // Carousel logic
@@ -53,11 +56,11 @@ const App = () => {
                     &lt;
                 </button>
                 <div className="product-cards">
-                    {products.slice(startIndex, startIndex + visibleProducts).map((product, index) => (
-                        <div key={index} className="product-card">
+                    {products.slice(startIndex, startIndex + visibleProducts).map((product) => (
+                        <div key={product.name} className="product-card">
                             {/* Display the selected color image */}
                             <img
-                                src={product.images[selectedColor[product.name] || "yellow"]}
+                                src={product.images[currentColor[product.name]]}
                                 alt={product.name}
                                 className="product-image"
                             />
@@ -66,9 +69,9 @@ const App = () => {
 
                             {/* Color Picker */}
                             <div className="color-picker">
-                                {["yellow", "rose", "white"].map((color, colorIndex) => (
+                                {["yellow", "rose", "white"].map((color, index) => (
                                     <button
-                                        key={colorIndex}
+                                        key={index}
                                         style={{
                                             backgroundColor:
                                                 color === "yellow"
@@ -77,15 +80,15 @@ const App = () => {
                                                     ? "#E1A4A9"
                                                     : "#D9D9D9",
                                         }}
-                                        className="color-circle"
+                                        className={`color-circle ${currentColor[product.name] === color ? "active" : ""}`}
                                         onClick={() => handleColorChange(product.name, color)}
                                     />
                                 ))}
                             </div>
                             <p className="color-name">
-                                {selectedColor[product.name] === "yellow"
+                                {currentColor[product.name] === "yellow"
                                     ? "Yellow Gold"
-                                    : selectedColor[product.name] === "rose"
+                                    : currentColor[product.name] === "rose"
                                     ? "Rose Gold"
                                     : "White Gold"}
                             </p>
