@@ -1,32 +1,64 @@
-.App {
-  font-family: Arial, sans-serif;
-  padding: 20px;
+body {
+  font-family: Avenir, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .product-list {
+  padding: 20px;
+  text-align: center;
+}
+
+.carousel {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.arrow {
+  border: none;
+  background: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.product-cards {
+  display: flex;
   gap: 20px;
+  overflow: hidden;
 }
 
 .product-card {
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 15px;
+  text-align: center;
   max-width: 200px;
 }
 
 .product-image {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 10px;
+}
+
+.color-picker {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin: 10px 0;
 }
 
 .color-picker button {
   width: 20px;
   height: 20px;
-  margin: 5px;
   border: none;
-  cursor: pointer;
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.rating {
+  font-size: 1rem;
+  color: #f4c150;
 }

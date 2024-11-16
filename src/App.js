@@ -20,37 +20,70 @@ const App = () => {
         }
     };
 
-    const handleColorChange = (id, color) => {
-        setSelectedColor(prev => ({ ...prev, [id]: color }));
+    const [currentColor, setCurrentColor] = useState({}); // Tracks selected color for each product
+
+    // Handle color change
+    const handleColorChange = (id, index) => {
+        setCurrentColor((prev) => ({ ...prev, [id]: index }));
     };
 
+    // Carousel logic
+    const [startIndex, setStartIndex] = useState(0);
+    const visibleProducts = 4; // Number of visible products in the carousel
+
+    const handleNext = () => {
+        if (startIndex + visibleProducts < products.length) {
+            setStartIndex(startIndex + 1);
+        }
+    };
+
+    const handlePrev = () => {
+        if (startIndex > 0) {
+            setStartIndex(startIndex - 1);
+        }
+    };
+
+
     return (
-        <div className="App">
-            <h1>Product List</h1>
-            <div className="product-list">
-                {products.map(product => (
-                    <div key={product.name} className="product-card">
-                        <img
-                            src={product.images[selectedColor[product.name] || 0]}
-                            alt={product.name}
-                            className="product-image"
-                        />
-                        <h2>{product.name}</h2>
-                        <p>${product.price} USD</p>
-                        <p>{product.popularity} / 5</p>
-                        <div className="color-picker">
-                            {['Yellow', 'White', 'Rose'].map((color, index) => (
-                                <button
-                                    key={index}
-                                    style={{ backgroundColor: product.colorOptions[index] }}
-                                    onClick={() => handleColorChange(product.name, index)}
-                                />
-                            ))}
+        <div className="product-list">
+        <h1>Product List</h1>
+            <div className="carousel">
+                <button className="arrow left" onClick={handlePrev}>
+                    &lt;
+                </button>
+                <div className="product-cards">
+                    {data.slice(startIndex, startIndex + visibleProducts).map((product) => (
+                        <div key={product.id} className="product-card">
+                            <img
+                                src={product.images[currentColor[product.id] || 0]}
+                                alt={product.title}
+                                className="product-image"
+                            />
+                            <h2>{product.title}</h2>
+                            <p>${product.price.toFixed(2)} USD</p>
+                            <div className="color-picker">
+                                {product.colors.map((color, index) => (
+                                    <button
+                                        key={index}
+                                        style={{ backgroundColor: color }}
+                                        onClick={() => handleColorChange(product.id, index)}
+                                    />
+                                ))}
+                            </div>
+                            <p>{product.colorNames[currentColor[product.id] || 0]}</p>
+                            <div className="rating">
+                                {"★".repeat(Math.floor(product.rating)) +
+                                    "☆".repeat(5 - Math.floor(product.rating))}
+                                <span> {product.rating}/5</span>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            <button className="arrow right" onClick={handleNext}>
+                &gt;
+            </button>
         </div>
+    </div>
     );
 };
 
