@@ -68,7 +68,7 @@ const App = () => {
     return (
         <div className="product-list">
             <h1 className="title">Product List</h1>
-            <Slider {...settings}>
+            <Slider {...settings} classname="products-card">
                 {products.map((product) => (
                     <div key={product.name} className="product-card">
                         <img
