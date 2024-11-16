@@ -53,9 +53,9 @@ const App = () => {
                 </button>
                 <div className="product-cards">
                     {products.slice(startIndex, startIndex + visibleProducts).map((product) => (
-                        <div key={product.name} className="product-card">
+                        <div key={product.id} className="product-card">
                             <img
-                                src={product.images[currentColor[product.name] || 0]}
+                                src={product.images[currentColor[product.id] || 0]}
                                 alt={product.title}
                                 className="product-image"
                             />
@@ -66,11 +66,11 @@ const App = () => {
                                     <button
                                         key={index}
                                         style={{ backgroundColor: color }}
-                                        onClick={() => handleColorChange(product.name, index)}
+                                        onClick={() => handleColorChange(product.id, index)}
                                     />
                                 ))}
                             </div>
-                            <p>{product.colorNames[currentColor[product.name] || 0]}</p>
+                            <p>{product.colorNames[currentColor[product.id] || 0]}</p>
                             <div className="rating">
                                 {"★".repeat(Math.floor(product.rating)) +
                                     "☆".repeat(5 - Math.floor(product.rating))}
