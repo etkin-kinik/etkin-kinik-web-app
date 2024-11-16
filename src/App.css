@@ -2,7 +2,7 @@ body {
   font-family: Avenir, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9; /* Added background-color */
+  background-color: #f9f9f9;
 }
 
 .product-list {
@@ -12,55 +12,47 @@ body {
 
 .title {
   font-family: "Avenir", sans-serif;
-  font-size: 2.5rem; /* 2rem */
+  font-size: 2.5rem;
   margin-bottom: 30px;
-  border-bottom: 2px solid #ddd; /* 1px */
+  border-bottom: 2px solid #ddd;
   display: inline-block;
   padding-bottom: 10px;
-  color: #333; /* Added color */
+  color: #333;
 }
 
 .carousel {
-display: flex;
-align-items: center;
-justify-content: space-between; /* center */
-gap: 10px;
-margin-top: 30px; /* 20px */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 30px;
 }
 
 .arrow {
-background: none;
-border: none;
-font-size: 2rem; /* 2.5rem */
-cursor: pointer;
-color: #333; /* #000000 */
-transition: transform 0.3s ease;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+  transition: transform 0.3s ease;
 }
 
 .arrow:hover {
-transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 .arrow:disabled {
-color: #ccc5c5;
-cursor: not-allowed;
+  color: #ccc5c5;
+  cursor: not-allowed;
 }
 
 .product-cards {
-display: flex; 
-gap: 20px;
-overflow: hidden;
-width: 80%; /* Adjust width as needed */
-justify-content: center; /* Added justify-content */
-}
-/*
-.products {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex; 
   gap: 20px;
-  justify-items: center;
+  overflow: hidden;
+  width: 80%;
+  justify-content: center;
 }
-*/
 
 .product-card {
   border: 1px solid #ddd;
@@ -68,12 +60,11 @@ justify-content: center; /* Added justify-content */
   padding: 15px;
   width: 250px;
   text-align: center;
-  background-color: #fff; /* Added background */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added box-shadow */
-  transition: transform 0.3s ease, box-shadow 0.3 ease; /* Added transition */
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3 ease;
 }
 
-/* Added product-card:hover */
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
@@ -87,22 +78,22 @@ justify-content: center; /* Added justify-content */
 
 .product-title {
   font-family: "Avenir", sans-serif;
-  font-size: 1.4rem; /* 1.2rem */
+  font-size: 1.4rem;
   margin: 10px 0;
-  color: #333; /* Added color */
+  color: #333;
 }
 
 .product-price {
   font-family: "Montserrat", sans-serif;
-  font-size: 1rem; /* 1rem */
-  color: #444; /* #333 */
+  font-size: 1rem;
+  color: #444;
   margin: 5px 0;
 }
 
 .color-picker {
   display: flex;
   justify-content: center;
-  gap: 10px; /* 5px */
+  gap: 10px;
   margin: 10px 0;
 }
 
@@ -110,12 +101,11 @@ justify-content: center; /* Added justify-content */
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1px solid #ddd; /* none */
+  border: 1px solid #ddd;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2 ease; /* Added transition */
+  transition: transform 0.2s ease, box-shadow 0.2 ease;
 }
 
-/* Added color-circle:hover */
 .color-circle:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -124,19 +114,19 @@ justify-content: center; /* Added justify-content */
 .color-name {
   font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;
-  color: #555; /* #666 */
+  color: #555;
   margin-top: 5px;
 }
 
 .rating {
-  margin-top: 15px; /* 10px */
-  font-size: 1.2rem;  /* 1rem */
+  margin-top: 15px;
+  font-size: 1.2rem;
   color: #f4c150;
 }
 
 .rating-text {
   font-family: "Montserrat", sans-serif;
   font-size: 0.9rem;
-  color: #444; /* #333 */
+  color: #444;
   margin-left: 5px;
 }

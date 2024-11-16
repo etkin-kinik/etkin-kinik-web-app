@@ -32,7 +32,7 @@ const App = () => {
 
     // Carousel logic
     const [startIndex, setStartIndex] = useState(0);
-    const visibleProducts = 4; // Number of visible products in the carousel
+    const visibleProducts = 4;
 
     const handleNext = () => {
         if (startIndex + visibleProducts < products.length) {
@@ -58,7 +58,6 @@ const App = () => {
                 <div className="product-cards">
                     {products.slice(startIndex, startIndex + visibleProducts).map((product) => (
                         <div key={product.name} className="product-card">
-                            {/* Display the selected color image */}
                             <img
                                 src={product.images[currentColor[product.name]]}
                                 alt={product.name}
@@ -66,8 +65,7 @@ const App = () => {
                             />
                             <h2 className="product-title">{product.name}</h2>
                             <p className="product-price">${((product.popularityScore + 1) * product.weight).toFixed(2)} USD</p>
-
-                            {/* Color Picker */}
+                            
                             <div className="color-picker">
                                 {["yellow", "rose", "white"].map((color, index) => (
                                     <button
@@ -93,7 +91,6 @@ const App = () => {
                                     : "White Gold"}
                             </p>
 
-                            {/* Rating */}
                             <div className="rating">
                                 {"★".repeat(Math.floor(product.popularityScore / 20)) +
                                     "☆".repeat(5 - Math.floor(product.popularityScore / 20))}
