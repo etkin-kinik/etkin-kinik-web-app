@@ -36,21 +36,21 @@ const App = () => {
 
     const handleNext = () => {
         if (startIndex + visibleProducts < products.length) {
-            setStartIndex(startIndex + visibleProducts);
+            setStartIndex(startIndex + 1);
         }
     };
 
     const handlePrev = () => {
         if (startIndex > 0) {
-            setStartIndex(startIndex - visibleProducts);
+            setStartIndex(startIndex - 1);
         }
     };
 
     const handleDotClick = (index) => {
-        setStartIndex(index * visibleProducts);
+        setStartIndex(index);
     };
 
-    const totalPages = Math.ceil(products.length / visibleProducts);
+    const totalDots = Math.ceil(products.length / 2 + 1);
 
     return (
         <div className="product-list">
@@ -112,6 +112,19 @@ const App = () => {
                 >
                     &gt;
                 </button>
+            </div>
+            
+            <div className="dots">
+                {Array.from({ length: totalDots }, (_, index) => {
+                    const dotIndex = (startIndex + index) % products.length;
+                    return (
+                        <button
+                            key={index}
+                            className={`dot ${dotIndex === startIndex ? "active" : ""}`}
+                            onClick={() => handleDotClick(dotIndex)}
+                        />
+                    );
+                })}
             </div>
         </div>
     );
