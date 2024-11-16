@@ -46,44 +46,69 @@ const App = () => {
 
     return (
         <div className="product-list">
-        <h1>Product List</h1>
+            <h1 className="title">Product List</h1>
             <div className="carousel">
-                <button className="arrow left" onClick={handlePrev}>
+                {/* Left Arrow */}
+                <button className="arrow left" onClick={handlePrev} disabled={startIndex === 0}>
                     &lt;
                 </button>
                 <div className="product-cards">
-                    {products.slice(startIndex, startIndex + visibleProducts).map((product) => (
-                        <div key={product.id} className="product-card">
+                    {products.slice(startIndex, startIndex + visibleProducts).map((product, index) => (
+                        <div key={index} className="product-card">
+                            {/* Display the selected color image */}
                             <img
-                                src={product.images[currentColor[product.id] || 0]}
-                                alt={product.title}
+                                src={product.images[selectedColor[product.name] || "yellow"]}
+                                alt={product.name}
                                 className="product-image"
                             />
-                            <h2>{product.title}</h2>
-                            <p>${product.price.toFixed(2)} USD</p>
+                            <h2 className="product-title">{product.name}</h2>
+                            <p className="product-price">${((product.popularityScore + 1) * product.weight).toFixed(2)} USD</p>
+
+                            {/* Color Picker */}
                             <div className="color-picker">
-                                {product.colors.map((color, index) => (
+                                {["yellow", "rose", "white"].map((color, colorIndex) => (
                                     <button
-                                        key={index}
-                                        style={{ backgroundColor: color }}
-                                        onClick={() => handleColorChange(product.id, index)}
+                                        key={colorIndex}
+                                        style={{
+                                            backgroundColor:
+                                                color === "yellow"
+                                                    ? "#E6CA97"
+                                                    : color === "rose"
+                                                    ? "#E1A4A9"
+                                                    : "#D9D9D9",
+                                        }}
+                                        className="color-circle"
+                                        onClick={() => handleColorChange(product.name, color)}
                                     />
                                 ))}
                             </div>
-                            <p>{product.colorNames[currentColor[product.id] || 0]}</p>
+                            <p className="color-name">
+                                {selectedColor[product.name] === "yellow"
+                                    ? "Yellow Gold"
+                                    : selectedColor[product.name] === "rose"
+                                    ? "Rose Gold"
+                                    : "White Gold"}
+                            </p>
+
+                            {/* Rating */}
                             <div className="rating">
-                                {"★".repeat(Math.floor(product.rating)) +
-                                    "☆".repeat(5 - Math.floor(product.rating))}
-                                <span> {product.rating}/5</span>
+                                {"★".repeat(Math.floor(product.popularityScore / 20)) +
+                                    "☆".repeat(5 - Math.floor(product.popularityScore / 20))}
+                                <span className="rating-text"> {(product.popularityScore / 20).toFixed(1)}/5</span>
                             </div>
                         </div>
                     ))}
                 </div>
-            <button className="arrow right" onClick={handleNext}>
-                &gt;
-            </button>
+                {/* Right Arrow */}
+                <button
+                    className="arrow right"
+                    onClick={handleNext}
+                    disabled={startIndex + visibleProducts >= products.length}
+                >
+                    &gt;
+                </button>
+            </div>
         </div>
-    </div>
     );
 };
 
