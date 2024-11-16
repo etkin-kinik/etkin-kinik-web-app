@@ -46,12 +46,6 @@ const App = () => {
         }
     };
 
-    const handleDotClick = (index) => {
-        setStartIndex(index);
-    };
-
-    const totalDots = Math.ceil(products.length / 2 + 1);
-
     return (
         <div className="product-list">
             <h1 className="title">Product List</h1>
@@ -112,19 +106,6 @@ const App = () => {
                 >
                     &gt;
                 </button>
-            </div>
-            
-            <div className="dots">
-                {Array.from({ length: totalDots }, (_, index) => {
-                    const dotIndex = (startIndex + index) % products.length;
-                    return (
-                        <button
-                            key={index}
-                            className={`dot ${dotIndex === startIndex ? "active" : ""}`}
-                            onClick={() => handleDotClick(dotIndex)}
-                        />
-                    );
-                })}
             </div>
         </div>
     );
