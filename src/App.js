@@ -52,7 +52,7 @@ const App = () => {
                     &lt;
                 </button>
                 <div className="product-cards">
-                    {data.slice(startIndex, startIndex + visibleProducts).map((product) => (
+                    {products.slice(startIndex, startIndex + visibleProducts).map((product) => (
                         <div key={product.id} className="product-card">
                             <img
                                 src={product.images[currentColor[product.id] || 0]}
