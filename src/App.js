@@ -50,7 +50,7 @@ const App = () => {
         setStartIndex(index * visibleProducts);
     };
 
-    const totalPages = Math.ceil(products.length / visibleProducts);
+    const totalPages = Math.ceil(products.length / 2);
 
     return (
         <div className="product-list">
