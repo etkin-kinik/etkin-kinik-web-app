@@ -130,3 +130,28 @@ body {
   color: #444;
   margin-left: 5px;
 }
+
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background-color: #ccc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot:hover {
+  background-color: #999;
+}
+
+.dot.active {
+  background-color: #333; /* Highlight active dot */
+}

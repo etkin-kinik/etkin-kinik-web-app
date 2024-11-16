@@ -36,16 +36,21 @@ const App = () => {
 
     const handleNext = () => {
         if (startIndex + visibleProducts < products.length) {
-            setStartIndex(startIndex + 1);
+            setStartIndex(startIndex + visibleProducts);
         }
     };
 
     const handlePrev = () => {
         if (startIndex > 0) {
-            setStartIndex(startIndex - 1);
+            setStartIndex(startIndex - visibleProducts);
         }
     };
 
+    const handleDotClick = (index) => {
+        setStartIndex(index * visibleProducts);
+    };
+
+    const totalPages = Math.ceil(products.length / visibleProducts);
 
     return (
         <div className="product-list">
@@ -65,7 +70,7 @@ const App = () => {
                             />
                             <h2 className="product-title">{product.name}</h2>
                             <p className="product-price">${((product.popularityScore + 1) * product.weight).toFixed(2)} USD</p>
-                            
+
                             <div className="color-picker">
                                 {["yellow", "rose", "white"].map((color, index) => (
                                     <button
@@ -107,6 +112,15 @@ const App = () => {
                 >
                     &gt;
                 </button>
+            </div>
+            <div className="dots">
+                {[...Array(totalPages)].map((_, index) => (
+                    <button
+                        key={index}
+                        className={`dot ${startIndex / visibleProducts === index ? "active" : ""}`}
+                        onClick={() => handleDotClick(index)}
+                    ></button>
+                ))}
             </div>
         </div>
     );
