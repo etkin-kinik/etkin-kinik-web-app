@@ -36,13 +36,13 @@ const App = () => {
 
     const handleNext = () => {
         if (startIndex + visibleProducts < products.length) {
-            setStartIndex(startIndex + visibleProducts);
+            setStartIndex(startIndex + 1);
         }
     };
 
     const handlePrev = () => {
         if (startIndex > 0) {
-            setStartIndex(startIndex - visibleProducts);
+            setStartIndex(startIndex - 1);
         }
     };
 
