@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import './App.css';
 
 const App = () => {
@@ -33,92 +30,83 @@ const App = () => {
         setCurrentColor((prev) => ({ ...prev, [productName]: color }));
     };
 
-    // Slider settings
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                },
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
+    // Carousel logic
+    const [startIndex, setStartIndex] = useState(0);
+    const visibleProducts = 4;
+
+    const handleNext = () => {
+        if (startIndex + visibleProducts < products.length) {
+            setStartIndex(startIndex + 1);
+        }
+    };
+
+    const handlePrev = () => {
+        if (startIndex > 0) {
+            setStartIndex(startIndex - 1);
+        }
     };
 
     return (
         <div className="product-list">
             <h1 className="title">Product List</h1>
-            <Slider {...settings}>
-                {products.map((product) => (
-                    <div key={product.name} className="product-card">
-                        <img
-                            src={product.images[currentColor[product.name]]}
-                            alt={product.name}
-                            className="product-image"
-                        />
-                        <h2 className="product-title">{product.name}</h2>
-                        <p className="product-price">
-                            ${((product.popularityScore + 1) * product.weight).toFixed(2)} USD
-                        </p>
+            <div className="carousel">
+                {/* Left Arrow */}
+                <button className="arrow left" onClick={handlePrev} disabled={startIndex === 0}>
+                    &lt;
+                </button>
+                <div className="product-cards">
+                    {products.slice(startIndex, startIndex + visibleProducts).map((product) => (
+                        <div key={product.name} className="product-card">
+                            <img
+                                src={product.images[currentColor[product.name]]}
+                                alt={product.name}
+                                className="product-image"
+                            />
+                            <h2 className="product-title">{product.name}</h2>
+                            <p className="product-price">${((product.popularityScore + 1) * product.weight).toFixed(2)} USD</p>
 
-                        <div className="color-picker">
-                            {["yellow", "rose", "white"].map((color, index) => (
-                                <button
-                                    key={index}
-                                    style={{
-                                        backgroundColor:
-                                            color === "yellow"
-                                                ? "#E6CA97"
-                                                : color === "rose"
-                                                ? "#E1A4A9"
-                                                : "#D9D9D9",
-                                    }}
-                                    className={`color-circle ${
-                                        currentColor[product.name] === color ? "active" : ""
-                                    }`}
-                                    onClick={() => handleColorChange(product.name, color)}
-                                />
-                            ))}
-                        </div>
-                        <p className="color-name">
-                            {currentColor[product.name] === "yellow"
-                                ? "Yellow Gold"
-                                : currentColor[product.name] === "rose"
-                                ? "Rose Gold"
-                                : "White Gold"}
-                        </p>
+                            <div className="color-picker">
+                                {["yellow", "rose", "white"].map((color, index) => (
+                                    <button
+                                        key={index}
+                                        style={{
+                                            backgroundColor:
+                                                color === "yellow"
+                                                    ? "#E6CA97"
+                                                    : color === "rose"
+                                                    ? "#E1A4A9"
+                                                    : "#D9D9D9",
+                                        }}
+                                        className={`color-circle ${currentColor[product.name] === color ? "active" : ""}`}
+                                        onClick={() => handleColorChange(product.name, color)}
+                                    />
+                                ))}
+                            </div>
+                            <p className="color-name">
+                                {currentColor[product.name] === "yellow"
+                                    ? "Yellow Gold"
+                                    : currentColor[product.name] === "rose"
+                                    ? "Rose Gold"
+                                    : "White Gold"}
+                            </p>
 
-                        <div className="rating">
-                            {"★".repeat(Math.floor(product.popularityScore / 20)) +
-                                "☆".repeat(5 - Math.floor(product.popularityScore / 20))}
-                            <span className="rating-text">
-                                {" "}
-                                {(product.popularityScore / 20).toFixed(1)}/5
-                            </span>
+                            <div className="rating">
+                                {"★".repeat(Math.floor(product.popularityScore / 20)) +
+                                    "☆".repeat(5 - Math.floor(product.popularityScore / 20))}
+                                <span className="rating-text"> {(product.popularityScore / 20).toFixed(1)}/5</span>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </Slider>
+                    ))}
+                </div>
+                {/* Right Arrow */}
+                <button
+                    className="arrow right"
+                    onClick={handleNext}
+                    disabled={startIndex + visibleProducts >= products.length}
+                >
+                    &gt;
+                </button>
+            </div>
         </div>
     );
 };
