@@ -44,8 +44,16 @@ body {
   cursor: not-allowed;
 }
 
+.arrow.left {
+  left: -40px; /* Position near the leftmost card */
+}
+
+.arrow.right {
+  right: -40px; /* Position near the rightmost card */
+}
+
 .product-cards {
-  display: flex;
+  display: center;
   gap: 20px;
   overflow: hidden;
   width: 80%; /* Adjust width as needed */
